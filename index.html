@@ -1,72 +1,134 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Tuğçe Gül'e</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ffd6e0, #ffe4ec);
-      text-align: center;
-      color: #333;
-      padding: 50px;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    h2 {
-      font-weight: normal;
-      margin-bottom: 30px;
-    }
-    .content {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .proposal {
-      margin-top: 40px;
-      font-size: 1.8em;
-      color: #e91e63;
-      font-weight: bold;
-    }
-    audio {
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutlu Yıllar Sevgilim! ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #1a0a1f, #05010a);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #message-container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
+            margin-bottom: 20px;
+        }
+
+        #changing-text {
+            font-size: 1.8rem;
+            min-height: 2.5rem;
+            font-style: italic;
+            transition: opacity 0.8s ease-in-out;
+            color: #ffb3c1;
+        }
+
+        /* Kar ve Kalp Elementleri */
+        .falling {
+            position: absolute;
+            top: -50px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="content">
-    <h1>Tuğçe Gül ❤</h1>
-    <h2>Bu sayfa, sana kalbimden gelenlerle hazırlandı...</h2>
 
-    <p>İlk tanıştığımız anı hatırlıyor musun? O düğünde sana çarptığım an...</p>
-    <p><!-- Göz göze geldik, sonra beraber halay çektik... --> O günden sonra hayatımda her şey değişti.</p>
-    
-    <p>Seninle birlikte olmak, sadece bir ilişki değil… bir hayatın anlamı oldu.</p>
-    <p>Sen, <strong>aklımı başımdan alan</strong>, <strong>kalbimin tek sahibi</strong> oldun.</p>
+    <div id="message-container">
+        <h1>Yeni Yılımız Kutlu Olsun Sevgilim! ✨</h1>
+        <div id="changing-text">Seni çok seviyorum...</div>
+    </div>
 
-    <p class="proposal">
-      Bir ömür boyu,<br>
-      Dünya ve ahirette<br>
-      <strong>Tek sevdiğim olmaya var mısın?</strong><br><br>
-      <!-- 💍 Benimle evlenir misin?  -->
-    </p>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <iframe width="500" height="300" src="https://www.youtube.com/watch?v=aMiZr4Sdfs8&list=RDNe20ENlpkG8&index=2" title="Toygar Isikli - Sen Esittir Ben" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <script>
+        // 1. Değişen Güzel Sözler
+        const texts = [
+            "Yeni yılda da her saniyem seninle olsun.",
+            "Hayatımın en güzel kodu sensin. ❤️",
+            "2026 bizim yılımız olacak sevgilim.",
+            "Her yeni gün seninle daha anlamlı...",
+            "Gelecekteki tüm yıllara seninle girmek dileğiyle.",
+            "Dünyadaki en güzel manzaradan daha güzelsin."
+        ];
+        
+        let index = 0;
+        const textElement = document.getElementById('changing-text');
 
-    <br><br><br><br>
+        setInterval(() => {
+            textElement.style.opacity = 0;
+            setTimeout(() => {
+                index = (index + 1) % texts.length;
+                textElement.innerText = texts[index];
+                textElement.style.opacity = 1;
+            }, 800);
+        }, 4000);
 
-    <iframe width="500" height="300" src="https://www.youtube.com/embed/Ne20ENlpkG8?list=RDNe20ENlpkG8" title="İlyas Yalçıntaş - Sadem" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    
-    
-    <audio controls autoplay loop>
-      <source src="https://www.muzikmp3indir.com/mp3_files/ilyas-yalcintas-sadem-2020.mp3" type="audio/mpeg">
-      Tarayıcınız bu müzik öğesini desteklemiyor.
-    </audio>
-  </div>
+        // 2. Kar ve Kalp Yağdırma
+        function createFallingElement() {
+            const elements = ['❄️', '❤️', '❄️', '💖', '✨'];
+            const el = document.createElement('div');
+            el.className = 'falling';
+            el.innerText = elements[Math.floor(Math.random() * elements.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = Math.random() * 20 + 10 + 'px';
+            el.style.animationDuration = Math.random() * 3 + 2 + 's';
+            el.style.opacity = Math.random();
+            
+            document.body.appendChild(el);
+
+            setTimeout(() => {
+                el.remove();
+            }, 5000);
+        }
+        setInterval(createFallingElement, 150);
+
+        // 3. Yanlardan Sürekli Konfeti Patlaması
+        const duration = 15 * 1000;
+        const animationEnd = Date.now() + duration;
+
+        function shootConfetti() {
+            confetti({
+                particleCount: 3,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0, y: 0.7 },
+                colors: ['#ff0000', '#ffffff', '#ff69b4']
+            });
+            confetti({
+                particleCount: 3,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1, y: 0.7 },
+                colors: ['#ff0000', '#ffffff', '#ff69b4']
+            });
+        }
+
+        // Sürekli patlama için interval
+        setInterval(shootConfetti, 500);
+    </script>
 </body>
 </html>
