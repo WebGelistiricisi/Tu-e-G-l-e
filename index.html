@@ -1,137 +1,268 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mutlu Yıllar Sevgilim! ❤️</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: radial-gradient(circle, #1a0a1f, #05010a);
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seni Seviyorum ❤️</title>
 
-        #message-container {
-            text-align: center;
-            z-index: 10;
-            padding: 20px;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:black;overflow:hidden;font-family:'Segoe UI',sans-serif;color:white;}
 
-        h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
-            margin-bottom: 20px;
-        }
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+background:url("photo.jpg") center/cover no-repeat;
+filter:blur(8px) brightness(0.4);
+z-index:-2;
+}
 
-        #changing-text {
-            font-size: 1.8rem;
-            min-height: 2.5rem;
-            font-style: italic;
-            transition: opacity 0.8s ease-in-out;
-            color: #ffb3c1;
-        }
+.center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+width:90%;
+}
 
-        /* Kar ve Kalp Elementleri */
-        .falling {
-            position: absolute;
-            top: -50px;
-            user-select: none;
-            pointer-events: none;
-            z-index: 5;
-            animation: fall linear forwards;
-        }
+.message{
+font-size:40px;
+font-weight:bold;
+opacity:0;
+text-shadow:0 0 20px pink,0 0 40px red;
+transition:1s;
+margin-bottom:30px;
+}
 
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
-        }
-    </style>
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+margin:15px;
+transition:.3s;
+}
+
+#yes{background:hotpink;color:white;}
+#no{background:gray;color:white;position:relative;display:none;}
+
+.star{
+position:absolute;
+background:white;
+border-radius:50%;
+opacity:0;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{from{opacity:.1;}to{opacity:1;}}
+
+.heart{
+position:absolute;
+color:pink;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+from{transform:translateY(-10vh);}
+to{transform:translateY(110vh);}
+}
+
+.tulips{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:center;
+gap:20px;
+font-size:50px;
+background:linear-gradient(to top,#111,transparent);
+}
+
+.counter{margin-top:25px;font-size:22px;}
+
+.accepted{
+margin-top:20px;
+font-size:28px;
+color:gold;
+opacity:0;
+transition:1s;
+}
+
+.login{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:10;
+}
+
+.login-box{
+background:white;
+padding:30px;
+border-radius:15px;
+text-align:center;
+color:black;
+}
+
+.login-box input{
+    padding: 10px;
+    font-size: 18px;
+    margin: 10px 0;
+}
+</style>
 </head>
+
 <body>
 
-    <div id="message-container">
-        <h1>Yeni Yılımız Kutlu Olsun Sevgilim! ✨</h1>
-        <div id="changing-text">Seni çok seviyorum...</div>
-    </div>
+<div class="bg"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
-    <script>
-        // 1. Değişen Güzel Sözler
-        const texts = [
-            "Yeni yılda da her saniyem seninle olsun.",
-            "Hayatımın en güzel kodu sensin. ❤️",
-            "2026 bizim yılımız olacak sevgilim.",
-            "Her yeni gün seninle daha anlamlı...",
-            "Gelecekteki tüm yıllara seninle girmek dileğiyle.",
-            "Dünyadaki en güzel manzaradan daha güzelsin.",
-            "Seni Çok Seviyorum Hatunum💕."
-        ];
-        
-        let index = 0;
-        const textElement = document.getElementById('changing-text');
+<div class="login" id="login">
+<div class="login-box">
+<h2>Şifreyi Gir ❤️</h2>
+<input type="password" id="password" placeholder="Şifre">
+<br><br>
+<button onclick="checkPassword()">Giriş</button>
+</div>
+</div>
 
-        setInterval(() => {
-            textElement.style.opacity = 0;
-            setTimeout(() => {
-                index = (index + 1) % texts.length;
-                textElement.innerText = texts[index];
-                textElement.style.opacity = 1;
-            }, 800);
-        }, 4000);
+<div class="center">
+<div class="message" id="message"></div>
+<button id="yes">Evet 💖</button>
+<button id="no">Hayır 🙈</button>
+<div class="accepted" id="accepted">💍 Kabul Edildi</div>
+<div class="counter" id="counter"></div>
+</div>
 
-        // 2. Kar ve Kalp Yağdırma
-        function createFallingElement() {
-            const elements = ['❄️', '❤️', '❄️', '💖', '✨', '❤️‍🔥'];
-            const el = document.createElement('div');
-            el.className = 'falling';
-            el.innerText = elements[Math.floor(Math.random() * elements.length)];
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = Math.random() * 20 + 10 + 'px';
-            el.style.animationDuration = Math.random() * 3 + 2 + 's';
-            el.style.opacity = Math.random();
-            
-            document.body.appendChild(el);
+<div class="tulips">
+🌷 🌷 🌷 🌷 🌷 🌷 🌷 🌷 🌷 🌷 🌷
+</div>
 
-            setTimeout(() => {
-                el.remove();
-            }, 5000);
-        }
-        setInterval(createFallingElement, 150);
+<script>
 
-        // 3. Yanlardan Sürekli Konfeti Patlaması
-        const duration = 15 * 1000;
-        const animationEnd = Date.now() + duration;
+function checkPassword(){
+const pass=document.getElementById("password").value;
+if(pass==="sadeceikimiz"){
+document.getElementById("login").style.display="none";
+startApp();
+}else{
+alert("Yanlış şifre 🙈");
+}
+}
+const passwordInput = document.getElementById("password");
 
-        function shootConfetti() {
-            confetti({
-                particleCount: 3,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0, y: 0.7 },
-                colors: ['#ff0000', '#ffffff', '#ff69b4']
-            });
-            confetti({
-                particleCount: 3,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1, y: 0.7 },
-                colors: ['#ff0000', '#ffffff', '#ff69b4']
-            });
-        }
+passwordInput.addEventListener("keydown", function(e){
+    if(e.key === "Enter"){  // Enter tuşuna basılırsa
+        checkPassword();    // mevcut giriş fonksiyonunu çalıştır
+    }
+});
 
-        // Sürekli patlama için interval
-        setInterval(shootConfetti, 500);
-    </script>
+function startApp(){
+
+/* Mesajlar */
+const messages=[
+"Seni kırdım biliyorum...",
+"Ama sensiz çok eksik hissediyorum...",
+"Kalbim sadece senin için atıyor ❤️",
+"Bir şans daha verir misin?",
+"Seni Çok Seviyorum 💞"
+];
+
+let i=0;
+const msg=document.getElementById("message");
+
+function changeMessage(){
+msg.style.opacity=0;
+setTimeout(()=>{
+msg.innerText=messages[i];
+msg.style.opacity=1;
+i=(i+1)%messages.length;
+},500);
+}
+setInterval(changeMessage,4000);
+changeMessage();
+
+/* Yıldız */
+for(let s=0;s<200;s++){
+const star=document.createElement("div");
+star.classList.add("star");
+const size=Math.random()*3;
+star.style.width=size+"px";
+star.style.height=size+"px";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.animationDuration=(Math.random()*2+1)+"s";
+document.body.appendChild(star);
+}
+
+/* Kalp */
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+heart.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,300);
+
+/* Hayır kaçsın */
+const no=document.getElementById("no");
+no.addEventListener("mouseover",()=>{
+no.style.position="absolute";
+no.style.left=Math.random()*80+"%";
+no.style.top=Math.random()*80+"%";
+});
+
+/* EVET */
+document.getElementById("yes").addEventListener("click",()=>{
+
+for(let k=0;k<120;k++){createHeart();}
+
+/* Kabul yazısı */
+const accepted=document.getElementById("accepted");
+accepted.style.opacity=1;
+
+/* LOG */
+const logData={
+date:new Date().toLocaleString(),
+userAgent:navigator.userAgent,
+platform:navigator.platform
+};
+
+console.log("EVET BASILDI:",logData);
+
+/* localStorage kayıt */
+localStorage.setItem("evetLog",JSON.stringify(logData));
+
+});
+
+/* Sayaç */
+const startDate=new Date("2025-08-01");
+function updateCounter(){
+const now=new Date();
+const diff=now-startDate;
+const days=Math.floor(diff/(1000*60*60*24));
+document.getElementById("counter").innerText=
+`İlk tanıştığımızdan bu yana ${days} gün geçti ❤️`;
+}
+setInterval(updateCounter,1000);
+updateCounter();
+
+}
+
+</script>
+
 </body>
 </html>
-
-
